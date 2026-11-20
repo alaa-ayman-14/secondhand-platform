@@ -1,1 +1,81 @@
-<p>analytics works!</p>
+<section class="analytics-dashboard">
+  <header class="dashboard-header">
+    <h1>Seller Analytics</h1>
+    <p>Overview of your listing performance and sales</p>
+  </header>
+
+  <div class="kpi-grid">
+    <div class="kpi-card">
+      <span class="kpi-label">Total Revenue</span>
+      <strong class="kpi-value">{{ summary.totalRevenue | number }} EGP</strong>
+    </div>
+    <div class="kpi-card">
+      <span class="kpi-label">Items Sold</span>
+      <strong class="kpi-value">{{ summary.itemsSold }}</strong>
+    </div>
+    <div class="kpi-card">
+      <span class="kpi-label">Active Listings</span>
+      <strong class="kpi-value">{{ summary.activeListings }}</strong>
+    </div>
+    <div class="kpi-card">
+      <span class="kpi-label">Avg. Sale Price</span>
+      <strong class="kpi-value">{{ summary.averageSalePrice | number }} EGP</strong>
+    </div>
+    <div class="kpi-card">
+      <span class="kpi-label">Total Views</span>
+      <strong class="kpi-value">{{ summary.totalViews | number }}</strong>
+    </div>
+    <div class="kpi-card">
+      <span class="kpi-label">Sell-Through Rate</span>
+      <strong class="kpi-value">{{ summary.sellThroughRate }}%</strong>
+    </div>
+  </div>
+
+  <div class="charts-grid">
+    <div class="card">
+      <h2>Monthly Revenue Trend</h2>
+      <div class="chart-wrapper">
+        <canvas #monthlyChart></canvas>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Revenue by Category</h2>
+      <div class="chart-wrapper">
+        <canvas #categoryChart></canvas>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Top Performing Listings</h2>
+    <table class="listings-table">
+      <thead>
+        <tr>
+          <th>Item</th>
+          <th>Category</th>
+          <th>Price</th>
+          <th>Views</th>
+          <th>Saves</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (item of topListings; track item.id) {
+          <tr>
+            <td>{{ item.title }}</td>
+            <td>{{ item.category }}</td>
+            <td>{{ item.price | number }} EGP</td>
+            <td>{{ item.views }}</td>
+            <td>{{ item.wishlistSaves }}</td>
+            <td>
+              <span class="badge" [class.sold]="item.status === 'sold'">
+                {{ item.status | titlecase }}
+              </span>
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+</section>
