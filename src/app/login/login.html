@@ -1,0 +1,77 @@
+<header class="header">
+  <div class="brand">
+    <h1>Revora</h1>
+    <span>Good things deserve a second chapter.</span>
+  </div>
+
+  <div class="signup">
+    <span>Don't have an account?</span>
+    <a routerLink="/register">Sign up →</a>
+  </div>
+</header>
+
+<main class="login-container">
+  <div class="image-section">
+    <h2>Good things find<br>good people.</h2>
+
+    <p>
+      Join a community giving pre-loved things<br>
+      a well-deserved next chapter.
+    </p>
+
+    <strong>Buy thoughtfully. Sell simply.</strong>
+  </div>
+
+  <div class="form-section">
+    <h2>Welcome Back.</h2>
+    <p>Log in to keep the good finds coming.</p>
+
+    <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
+
+      <input
+        type="email"
+        placeholder="Enter your email"
+        formControlName="email"
+      >
+
+      @if (loginForm.controls.email.touched) {
+        @if (loginForm.controls.email.hasError('required')) {
+          <small style="color: red;">
+            Email is required.
+          </small>
+        }
+
+        @if (loginForm.controls.email.hasError('email')) {
+          <small style="color: red;">
+            Enter a valid email address.
+          </small>
+        }
+      }
+
+      <input
+        type="password"
+        placeholder="Enter your password"
+        formControlName="password"
+      >
+
+      @if (loginForm.controls.password.touched) {
+        @if (loginForm.controls.password.hasError('required')) {
+          <small style="color: red;">
+            Password is required.
+          </small>
+        }
+      }
+
+      <label class="remember">
+        <input
+          type="checkbox"
+          formControlName="rememberMe"
+        >
+        Remember me
+      </label>
+
+      <button type="submit">Log in →</button>
+
+    </form>
+  </div>
+</main>

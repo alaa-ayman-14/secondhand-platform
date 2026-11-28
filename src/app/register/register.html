@@ -1,0 +1,102 @@
+<header class="header">
+  <div class="brand">
+    <h1>Revora</h1>
+    <span>Good things deserve a second chapter.</span>
+  </div>
+
+  <div class="signup">
+    <span>Already have an account?</span>
+    <a routerLink="/login">Login →</a>
+  </div>
+</header>
+
+<main class="register-container">
+
+  <div class="image-section">
+    <h2>Good things find<br>good people.</h2>
+
+    <p>
+      Join a community giving pre-loved things<br>
+      a well-deserved next chapter.
+    </p>
+
+    <strong>Buy thoughtfully. Sell simply.</strong>
+  </div>
+
+  <div class="form-section">
+    <h2>Make yourself<br>at home.</h2>
+
+    <p>Find your people. Find your next favorite.</p>
+
+    <form [formGroup]="registerForm" (ngSubmit)="onRegister()">
+
+      <input
+        type="text"
+        placeholder="Enter your name"
+        formControlName="name"
+      >
+
+      @if (registerForm.controls.name.touched) {
+        @if (registerForm.controls.name.hasError('required')) {
+          <small style="color: red;">
+            Name is required.
+          </small>
+        }
+      }
+
+      <input
+        type="email"
+        placeholder="Enter your email"
+        formControlName="email"
+      >
+
+      @if (registerForm.controls.email.touched) {
+        @if (registerForm.controls.email.hasError('required')) {
+          <small style="color: red;">
+            Email is required.
+          </small>
+        }
+
+        @if (registerForm.controls.email.hasError('email')) {
+          <small style="color: red;">
+            Enter a valid email address.
+          </small>
+        }
+      }
+
+      <input
+        type="password"
+        placeholder="Enter your password"
+        formControlName="password"
+      >
+
+      <small class="password-hint">
+        At least 8 characters, with a number and a symbol.
+      </small>
+
+      @if (registerForm.controls.password.touched) {
+        @if (registerForm.controls.password.hasError('required')) {
+          <small style="color: red;">
+            Password is required.
+          </small>
+        }
+
+        @if (registerForm.controls.password.hasError('minlength')) {
+          <small style="color: red;">
+            Password must be at least 8 characters.
+          </small>
+        }
+
+        @if (registerForm.controls.password.hasError('pattern')) {
+          <small style="color: red;">
+            Password must contain a number and a symbol.
+          </small>
+        }
+      }
+
+      <button type="submit">Sign up →</button>
+
+    </form>
+  </div>
+
+</main>
