@@ -1,0 +1,91 @@
+<main class="edit-profile-container">
+
+  <a class="back-link">← Back to profile</a>
+
+  <div class="profile-card">
+
+    <div class="profile-picture">
+
+      <img [src]="profileImage" alt="Profile picture">
+
+      <input
+        type="file"
+        accept="image/*"
+        #fileInput
+        hidden
+        (change)="onImageChange($event)"
+      >
+
+      <button
+        type="button"
+        class="picture-button"
+        (click)="fileInput.click()"
+      >
+        Edit profile picture
+      </button>
+
+    </div>
+
+    <form [formGroup]="editProfileForm" (ngSubmit)="onEdit()">
+
+      <div class="form-group">
+        <label for="name">Name</label>
+
+        <input
+          type="text"
+          id="name"
+          formControlName="name"
+        >
+
+        @if (editProfileForm.controls.name.touched) {
+          @if (editProfileForm.controls.name.hasError('required')) {
+            <small style="color: red;">
+              Name is required.
+            </small>
+          }
+        }
+      </div>
+
+      <div class="form-group">
+        <label for="about">About me</label>
+
+        <input
+          type="text"
+          id="about"
+          formControlName="about"
+        >
+      </div>
+
+      <div class="form-group">
+        <label for="password">Password</label>
+
+        <input
+          type="password"
+          id="password"
+          formControlName="password"
+        >
+
+        @if (editProfileForm.controls.password.touched) {
+          @if (editProfileForm.controls.password.hasError('minlength')) {
+            <small style="color: red;">
+              Password must be at least 8 characters.
+            </small>
+          }
+
+          @if (editProfileForm.controls.password.hasError('pattern')) {
+            <small style="color: red;">
+              Password must contain a number and a symbol.
+            </small>
+          }
+        }
+      </div>
+
+      <button type="submit" class="edit-button">
+        Edit
+      </button>
+
+    </form>
+
+  </div>
+
+</main>

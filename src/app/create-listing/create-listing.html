@@ -1,0 +1,229 @@
+<main class="create-listing-container">
+
+  <div class="info-banner">
+
+    <div class="banner-left">
+      <h1>Add Item for Sell</h1>
+
+      <p>
+        A few details, a few photos, and a new<br>
+        beginning for your item.
+      </p>
+    </div>
+
+    <div class="banner-right">
+      <h3>A great listing gets noticed</h3>
+
+      <p>✓ Show your item from every angle</p>
+      <p>✓ Be honest about wear and condition</p>
+      <p>✓ Choose a fair, competitive price</p>
+    </div>
+
+  </div>
+
+  <div class="listing-card">
+
+    <form [formGroup]="listingForm" (ngSubmit)="onAddItem()">
+
+      <div class="form-group">
+
+        <label>Photo</label>
+
+        <input
+          type="file"
+          accept="image/*"
+          multiple
+          hidden
+          #fileInput
+          (change)="onImagesChange($event)"
+        >
+
+        <div class="photo-upload" (click)="fileInput.click()">
+          <span class="plus-icon">＋</span>
+          <p>Add photos</p>
+        </div>
+
+        <div class="image-preview">
+
+          @for (image of images; track $index) {
+
+            <div class="preview-item">
+
+              <img [src]="image" alt="Product photo">
+
+              <button
+                type="button"
+                class="remove-image"
+                (click)="removeImage($index)"
+              >
+                ×
+              </button>
+
+            </div>
+
+          }
+
+        </div>
+
+        @if (photoError) {
+          <small style="color: red;">
+            At least one photo is required.
+          </small>
+        }
+
+      </div>
+
+      <div class="form-group">
+
+        <label for="title">Listing title</label>
+
+        <input
+          type="text"
+          id="title"
+          placeholder="Mid-century lounge chair"
+          formControlName="title"
+        >
+
+        @if (listingForm.controls.title.touched &&
+             listingForm.controls.title.hasError('required')) {
+          <small style="color: red;">
+            Listing title is required.
+          </small>
+        }
+
+      </div>
+
+      <div class="form-row">
+
+        <div class="form-group">
+
+          <label for="category">Category</label>
+
+          <select id="category" formControlName="category">
+            <option value="">Select category</option>
+            <option value="Furniture">Furniture</option>
+            <option value="Electronics">Electronics</option>
+            <option value="Clothing">Clothing</option>
+            <option value="Books">Books</option>
+            <option value="Other">Other</option>
+          </select>
+
+          @if (listingForm.controls.category.touched &&
+               listingForm.controls.category.hasError('required')) {
+            <small style="color: red;">
+              Category is required.
+            </small>
+          }
+
+        </div>
+
+        <div class="form-group">
+
+          <label for="condition">Condition</label>
+
+          <select id="condition" formControlName="condition">
+            <option value="">Select condition</option>
+            <option value="Excellent">Excellent condition</option>
+            <option value="Good">Good condition</option>
+            <option value="Fair">Fair condition</option>
+            <option value="Poor">Poor condition</option>
+          </select>
+
+          @if (listingForm.controls.condition.touched &&
+               listingForm.controls.condition.hasError('required')) {
+            <small style="color: red;">
+              Condition is required.
+            </small>
+          }
+
+        </div>
+
+      </div>
+
+      <div class="price-location-row">
+
+        <div class="form-group">
+
+          <label for="price">Price</label>
+
+          <div class="price-input">
+            <span>$</span>
+
+            <input
+              type="number"
+              id="price"
+              placeholder="180"
+              min="0.01"
+              step="0.01"
+              formControlName="price"
+            >
+          </div>
+
+          @if (listingForm.controls.price.touched) {
+
+            @if (listingForm.controls.price.hasError('required')) {
+              <small style="color: red;">
+                Price is required.
+              </small>
+            }
+
+            @if (listingForm.controls.price.hasError('min')) {
+              <small style="color: red;">
+                Minimum price is $0.01.
+              </small>
+            }
+
+          }
+
+        </div>
+
+        <div class="form-group">
+
+          <label for="location">Location</label>
+
+          <input
+            type="text"
+            id="location"
+            placeholder="Mission District, San Francisco"
+            formControlName="location"
+          >
+
+          @if (listingForm.controls.location.touched &&
+               listingForm.controls.location.hasError('required')) {
+            <small style="color: red;">
+              Location is required.
+            </small>
+          }
+
+        </div>
+
+      </div>
+
+      <div class="form-group">
+
+        <label for="description">Description</label>
+
+        <textarea
+          id="description"
+          placeholder="Describe your item..."
+          formControlName="description"
+        ></textarea>
+
+        @if (listingForm.controls.description.touched &&
+             listingForm.controls.description.hasError('required')) {
+          <small style="color: red;">
+            Description is required.
+          </small>
+        }
+
+      </div>
+
+      <button type="submit" class="add-button">
+        Add Item
+      </button>
+
+    </form>
+
+  </div>
+
+</main>

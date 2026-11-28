@@ -1,0 +1,96 @@
+<main class="rate-feedback-container">
+
+  <a class="back-link">← Back to purchases</a>
+
+  <div class="info-banner">
+
+    <div class="banner-left">
+      <h2>
+        Good experiences build<br>
+        a great community.
+      </h2>
+
+      <p>
+        Tell us how your purchase went.
+        A little feedback goes a long way.
+      </p>
+    </div>
+
+    <div class="banner-right">
+      <h3>Honest feedback matters.</h3>
+
+      <p>
+        Keep it kind, specific, and about your
+        experience with this transaction.<br>
+        Your review helps everyone trade with a
+        little more confidence.
+      </p>
+    </div>
+
+  </div>
+
+  <div class="review-card">
+
+    <form [formGroup]="reviewForm"
+          (ngSubmit)="onSubmitReview()">
+
+      <h2>Your review of {{ sellerName }}</h2>
+
+      <p class="experience-text">
+        How was your experience?
+      </p>
+
+      <div class="rating">
+
+        <select formControlName="rating">
+          <option [ngValue]="5">5</option>
+          <option [ngValue]="4">4</option>
+          <option [ngValue]="3">3</option>
+          <option [ngValue]="2">2</option>
+          <option [ngValue]="1">1</option>
+        </select>
+
+        <span class="star">★</span>
+
+      </div>
+
+      <div class="feedback">
+
+        <label for="feedback">Share a few words</label>
+
+        <p>Help the next buyer know what to expect.</p>
+
+        <textarea
+          id="feedback"
+          placeholder="Share your experience..."
+          formControlName="feedback"
+        ></textarea>
+
+        @if (reviewForm.controls.feedback.touched) {
+          @if (reviewForm.controls.feedback.hasError('required')) {
+            <small style="color: red;">
+              Feedback is required.
+            </small>
+          }
+        }
+
+      </div>
+
+      <div class="submit-section">
+
+        <p class="review-note">
+          ✓ This review will appear on
+          {{ sellerName }}’s public profile.
+        </p>
+
+        <button type="submit" class="submit-button">
+          Submit review →
+        </button>
+
+      </div>
+
+    </form>
+
+  </div>
+
+</main>
